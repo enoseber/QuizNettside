@@ -1,0 +1,7 @@
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:07:01 +0200] "GET /Quiz_nettside/index.html HTTP/1.1" 200 343 http-bio-8080-exec-3 139
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:07:02 +0200] "GET /favicon.ico HTTP/1.1" 404 - http-bio-8080-exec-5 0
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:09:07 +0200] "GET /Quiz_nettside/index.html HTTP/1.1" 304 - http-bio-8080-exec-3 2482
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:09:12 +0200] "GET /Quiz_nettside/nyquizside.html HTTP/1.1" 200 134 http-bio-8080-exec-5 17
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:09:16 +0200] "GET /Quiz_nettside/scoreboard.html HTTP/1.1" 200 137 http-bio-8080-exec-6 21
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:09:18 +0200] "GET /Quiz_nettside/quizside.html HTTP/1.1" 200 201 http-bio-8080-exec-7 23
+0:0:0:0:0:0:0:1 - - [19/Sep/2017:13:09:19 +0200] "GET /Quiz_nettside/quiz_scoreboard.html HTTP/1.1" 200 137 http-bio-8080-exec-8 12

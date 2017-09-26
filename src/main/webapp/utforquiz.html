@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Utfør quizen</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script>
+        $(document).ready(function(){
+
+            function getCurrentQuiz(){
+                return $.ajax({
+                    type: "GET",
+                    url: "rest/path/getCurrentQuiz",
+                    async: false,
+                }).responseText;
+            }
+
+            function getCurrentQuestion(){
+                return $.ajax({
+                    type: "GET",
+                    url: "rest/path/getCurrentQuestion",
+                    async: false,
+                }).responseText;
+            }
+            var quizId = getCurrentQuiz();
+            var questionId = getCurrentQuestion();
+
+            function getQuestionText(){
+                return $.ajax({
+                    type: 'GET',
+                    url: 'rest/path/getQuestionText/' + quizId + '/' + questionId,
+                    async: false
+                }).responseText;
+            }
+
+            $("#question").html(getQuestionText());
+
+            var alt = new Array(6);
+
+            for(var i = 0; i < 7; i++){
+                alt[i] = new Array(2);
+            }
+
+            function getAlt(index){
+                var out = [];
+                $.ajax({
+                    url: 'rest/path/getAlternatives/' + quizId + '/' + questionId + '/' + index,
+                    type: 'GET',
+                    success: function(data){
+                        out = data;
+                    },
+                    async: false
+                });
+                return out;
+            }
+
+            for(var i = 0; i < 3; i++){
+                alt[i] = getAlt(i);
+                $("#alt" + i).html(alt[i][0]);
+            }
+
+            $("#submit").click(function(){
+                $.ajax({
+                    url: 'rest/path/setCurrentQuestion/' + (questionId+1),
+                    type: 'POST',
+                    data: JSON.stringify(questionId+1),
+                    contentType: 'application/json; charset=utf-8',
+                    dataType: 'json'
+                });
+
+                window.location.reload();
+            });
+
+        });
+    </script>
+</head>
+<body>
+    <h2 id = "question"></h2>
+    <form id = "alternatives">
+        <input type="radio" name="question" value="Alt1"><span id = "alt0"></span><br>
+        <input type="radio" name="question" value="Alt2"><span id = "alt1"></span><br>
+        <input type="radio" name="question" value="Alt3"><span id = "alt2"></span><br><br>
+        <input type="button" value="Send inn svar" id = "submit">
+    </form>
+</body>
+</html>

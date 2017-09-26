@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Quizside</title>
+    <link rel="shortcut icon" href="">
+    <!--<link rel="stylesheet" type="text/css" href="stylesheet.css">-->
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <!--<script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>-->
+    <script language="javascript">
+        $(document).ready(function(){
+//            $('#quizliste').DataTable({
+//                ajax: {
+//                    url: 'rest/quizServ'
+//                },
+//                columns: [
+//                    { data: 'id'},
+//                    { data: 'name'}
+//                ]
+//            });
+
+            $.get("rest/path", function(data){
+                $("#melding").html(data);
+            });
+            $(document).click(function(){
+                alert("Klikk");
+            });
+        });
+    </script>
+</head>
+<body>
+    <a href="quiz_scoreboard.html">Scoreboard til denne quizen</a>
+    <table id="quizliste">
+        <tr><th>id</th><th>name</th></tr>
+    </table>
+
+    <div id="melding"><p>Det funka ikke</p></div>
+</body>
+</html>
