@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a5537d40-ef01-437b-91d0-220655e68c63" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/java/services/QuizService.java" afterPath="$PROJECT_DIR$/src/main/java/services/QuizService.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/nyquizside.html" afterPath="$PROJECT_DIR$/src/main/webapp/nyquizside.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/main/webapp/utforquiz.html" afterPath="$PROJECT_DIR$/src/main/webapp/utforquiz.html" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -40,8 +38,8 @@
       <file leaf-file-name="utforquiz.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/main/webapp/utforquiz.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="282">
-              <caret line="47" column="36" lean-forward="false" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
+            <state relative-caret-position="1812">
+              <caret line="131" column="38" lean-forward="true" selection-start-line="131" selection-start-column="38" selection-end-line="131" selection-end-column="38" />
               <folding />
             </state>
           </provider>
@@ -399,12 +397,12 @@
       <workItem from="1506420949318" duration="9623000" />
       <workItem from="1506432349564" duration="891000" />
       <workItem from="1506504585809" duration="18412000" />
-      <workItem from="1506529380530" duration="15007000" />
+      <workItem from="1506529380530" duration="15662000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="126600000" />
+    <option name="totallyTimeSpent" value="127255000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -887,8 +885,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/src/main/webapp/utforquiz.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="282">
-          <caret line="47" column="36" lean-forward="false" selection-start-line="47" selection-start-column="36" selection-end-line="47" selection-end-column="36" />
+        <state relative-caret-position="1812">
+          <caret line="131" column="38" lean-forward="true" selection-start-line="131" selection-start-column="38" selection-end-line="131" selection-end-column="38" />
           <folding />
         </state>
       </provider>
