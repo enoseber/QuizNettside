@@ -17,7 +17,7 @@ public class Alternative {
     }
 
     public String isCorrect() {
-        return correct ? "Corrrect" : "Wrong";
+        return correct ? "Correct" : "Wrong";
     }
 
     public void setCorrect(boolean correct) {

@@ -22,12 +22,12 @@
                 var questionInputs = [];
                 var altInputs = [];
 
-                for(var i = 0; i < spm; i ++){
-                    altInputs[i] = new Array(3);
-                    alternatives[i] = new Array(3);
+                for(var j = 0; j < spm.val(); j ++){
+                    altInputs[j] = new Array(3);
+                    alternatives[j] = new Array(3);
                 }
 
-                for(var i = 0; i < spm; i++){
+                for(var i = 0; i < spm.val(); i++){
                     questionInputs[i] = $("#" + i + "_0").val();
                     for(var j = 0; j < 3; j++){
                         altInputs[i][j] = $("#" + i + "_" + (j+1)).val();
@@ -36,7 +36,7 @@
 
                 var bool = true;
 
-                for(var i = 0; i < spm; i++){
+                for(var i = 0; i < spm.val(); i++){
                     for(var j = 0; j < 3; j++){
                         alternatives[i][j] = {
                             text: altInputs[i][j],
@@ -45,7 +45,7 @@
                     }
                 }
 
-                for(var i = 0; i <= spm; i++){
+                for(var i = 0; i < spm.val(); i++){
                     questions[i] = {
                         question: questionInputs[i],
                         alternatives: alternatives[i]
@@ -57,24 +57,10 @@
                     type: 'POST',
                     data: JSON.stringify({
                         name: navnInput.val(),
-                        questions:
-//                        questions
-                            [
-                                {question: $("#0_0").val(),
-                                secondsLeft: 10,
-                                alternatives:[
-                                    {text: 'Alt1Inn'},
-                                    {text: 'Alt2Inn'},
-                                    {text: 'Alt3Inn'}
-                                    ]
-                                }
-                            ]
+                        questions: questions
                     }),
-                    contentType: "application/json; charset=utf-8", // this
-                    dataType: "json", // and this
-                    error: function(data){
-                        console.log(data);
-                    }
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json"
                 });
             });
 
@@ -106,8 +92,6 @@
             <option value = "2" >2</option>
             <option value = "3" >3</option>
             <option value = "4" >4</option>
-            <option value = "5" >5</option>
-            <option value = "6" >6</option>
         </select>
 
         <div id = "spm1">Spørsmål 1:
@@ -117,31 +101,29 @@
             Alternativ 3: <input id="0_3"><br>
         </div>
         <br>
-        <div id = "spm2">Spørsmål 2:<br>
+        <div id = "spm2">Spørsmål 2:
             <input type="text" id = "1_0"><br>
-            Alternativ 1: <input id="1_1">
-            Alternativ 2: <input id="1_2">
-            Alternativ 3: <input id="1_3">
+            Alternativ 1: <input id="1_1"><br>
+            Alternativ 2: <input id="1_2"><br>
+            Alternativ 3: <input id="1_3"><br>
         </div>
         <br>
-        <div id = "spm3">Spørsmål 3:<br>
-            <input type="text">
+        <div id = "spm3">Spørsmål 3:
+            <input type="text" id = "2_0"><br>
+            Alternativ 1: <input id="2_1"><br>
+            Alternativ 2: <input id="2_2"><br>
+            Alternativ 3: <input id="2_3"><br>
         </div>
         <br>
-        <div id = "spm4">Spørsmål 4:<br>
-            <input type="text">
+        <div id = "spm4">Spørsmål 4:
+            <input type="text" id = "3_0"><br>
+            Alternativ 1: <input id="3_1"><br>
+            Alternativ 2: <input id="3_2"><br>
+            Alternativ 3: <input id="3_3"><br>
         </div>
-        <br>
-        <div id = "spm5">Spørsmål 5:<br>
-            <input type="text">
-        </div>
-        <br>
-        <div id = "spm6">Spørsmål 6:<br>
-            <input type="text">
-        </div>
-
         <button id = "nameSend">Legg til</button>
     </form>
+
 
     <a href="quizside.html">Tilbake til quiz</a>
 

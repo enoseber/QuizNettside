@@ -24,7 +24,8 @@
                 },
                 columns: [
                     { data: 'id'},
-                    { data: 'name'}
+                    { data: 'name'},
+                    { data: 'startTime'}
                 ]
             });
 
@@ -62,7 +63,7 @@
                 $.ajax({
                     url: 'rest/path/setCurrentQuestion/0',
                     type: 'POST',
-                    data: JSON.stringify(0),
+                    data: '',
                     contentType: 'application/json; charset=utf-8',
                     dataType: 'json'
                 });
@@ -79,6 +80,7 @@
         <thead>
         <th>Quiz ID</th>
         <th>Quiz navn</th>
+        <th>Start-time</th>
         </thead>
     </table>
     </div>

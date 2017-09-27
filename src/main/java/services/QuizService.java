@@ -68,8 +68,15 @@ public class QuizService {
     @POST
     @Path("/setCurrentQuestion/{questionId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void setCurrentQuestion(@PathParam("questionId") int questionId){
-        currentQuestion = questionId;
+    public void setCurrentQuestion(@PathParam("questionId") int q){
+        currentQuestion = q;
+    }
+
+    @POST
+    @Path("/incCurrentQuestion")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void incCurrentQuestion(){
+        currentQuestion++;
     }
 
     @POST
@@ -81,13 +88,33 @@ public class QuizService {
     @Path("/nyQuiz")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addQuiz(Quiz q){
-        System.out.println();
-        System.out.println("Alts: " + q.getQuestions()[0].getAlternatives().toString());
-        System.out.println("Sporsmol: " + q.getDemBoys());
         q.setId("" + (quizzes.size() + 1));
+        q.setStartTime(new Date());
         quizzes.put(q.getId(), q);
-        System.out.println("Storrelse: "+quizzes.size());
     }
+
+    @POST
+    @Path("/scoreInc")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void scoreInc(){
+        quizzes.get(quizId).setScore(1);
+    }
+
+    @GET
+    @Path("/lastQuestion")
+    @Produces(MediaType.APPLICATION_JSON)
+    public boolean lastQuestion(){
+        return currentQuestion == quizzes.get(quizId).getQuestions().length;
+    }
+
+    @GET
+    @Path("/getScore")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int getScore(){
+        System.out.println(quizzes.get(quizId).getScore());
+        return quizzes.get(quizId).getScore();
+    }
+
 
     @GET
     @Path("/getCurrentQuestion")
@@ -100,8 +127,10 @@ public class QuizService {
     @Path("/getQuestionText")
     @Produces(MediaType.TEXT_PLAIN)
     public String getSpm(){
-        System.out.println("Storrelse: "+quizzes.size());
-        return quizzes.get(quizId).getQuestions()[1].getQuestion();
+        return quizzes.
+                get(quizId).
+                getQuestions()[currentQuestion].
+                getQuestion();
     }
 
     @GET
@@ -110,10 +139,13 @@ public class QuizService {
     public String[] getAlternative(
             @PathParam("altI") int altI){
         if(quizzes.containsKey(quizId)){
-            System.out.println("Storrelse: "+quizzes.size());
             String[] out = new String[2];
-            out[0] = quizzes.get(quizId).getQuestions()[1].getAlternatives()[altI].getText();
-            out[1] = quizzes.get(quizId).getQuestions()[1].getAlternatives()[altI].isCorrect();
+            out[0] = quizzes.
+                    get(quizId).
+                    getQuestions()[currentQuestion].
+                    getAlternatives()[altI].
+                    getText();
+            out[1] = quizzes.get(quizId).getQuestions()[currentQuestion].getAlternatives()[altI].isCorrect();
             return out;
         } else {
             throw new javax.ws.rs.NotFoundException();
@@ -164,6 +196,10 @@ public class QuizService {
     @Path("/getQuizList")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Quiz> getQuizzes() {
+        Map<String,Quiz> out = new HashMap<String,Quiz>();
+        for(int i = 1; i <= quizzes.size(); i++){
+
+        }
         return quizzes.values();
     }
 }
