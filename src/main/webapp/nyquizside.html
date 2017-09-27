@@ -18,38 +18,63 @@
             $('#nameSend').click(function(){
 
                 var questions = [];
+                var alternatives = [];
                 var questionInputs = [];
+                var altInputs = [];
+
+                for(var i = 0; i < spm; i ++){
+                    altInputs[i] = new Array(3);
+                    alternatives[i] = new Array(3);
+                }
 
                 for(var i = 0; i < spm; i++){
-                    questionInputs[i] = $("#" + i).val();
+                    questionInputs[i] = $("#" + i + "_0").val();
                     for(var j = 0; j < 3; j++){
-                        
+                        altInputs[i][j] = $("#" + i + "_" + (j+1)).val();
                     }
                 }
 
-                for(var i = 0; i <= 3; i++){
-                    questions[i] = {question: questionInputs[i],
+                var bool = true;
+
+                for(var i = 0; i < spm; i++){
+                    for(var j = 0; j < 3; j++){
+                        alternatives[i][j] = {
+                            text: altInputs[i][j],
+                            correct: bool
+                        };
+                    }
+                }
+
+                for(var i = 0; i <= spm; i++){
+                    questions[i] = {
+                        question: questionInputs[i],
+                        alternatives: alternatives[i]
                     };
                 }
 
                 $.ajax({
-                    url: 'rest/path',
+                    url: 'rest/path/nyQuiz',
                     type: 'POST',
                     data: JSON.stringify({
                         name: navnInput.val(),
-                        questions: questions
-//                            [{
-//                                question: $("#1_0").val(),
-//                                secondsLeft: 10,
-//                                alternatives:[
-//                                    {text: $("#1_1").val(), correct: true},
-//                                    {text: $("#1_2").val(), correct: false},
-//                                    {text: $("#1_3").val(), correct: false}
-//                                ]
-//                        } ]
+                        questions:
+//                        questions
+                            [
+                                {question: $("#0_0").val(),
+                                secondsLeft: 10,
+                                alternatives:[
+                                    {text: 'Alt1Inn'},
+                                    {text: 'Alt2Inn'},
+                                    {text: 'Alt3Inn'}
+                                    ]
+                                }
+                            ]
                     }),
-                    contentType: 'application/json; charset=utf-8',
-                    dataType: 'json'
+                    contentType: "application/json; charset=utf-8", // this
+                    dataType: "json", // and this
+                    error: function(data){
+                        console.log(data);
+                    }
                 });
             });
 

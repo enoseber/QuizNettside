@@ -14,39 +14,55 @@ public class QuizService {
     private static int currentQuestion = 0;
 
     public QuizService(){
-        if(quizzes.size() < 1){
-            Quiz q = new Quiz();
-            q.setId("QuizTest");
-            q.setName("Testname");
-            q.setStartTime(new Date());
-            Question[] que = new Question[2];
-            que[0] = new Question();
-            que[1] = new Question();
-            que[0].setQuestion("Test1");
-            que[1].setQuestion("Dette er et testspørsmpl?");
-            Alternative[] alt1 = {new Alternative("alt1", true),
-                                new Alternative("alt2", false),
-                                new Alternative("alt3", false)};
-            que[0].setAlternatives(alt1);
-            Alternative[] alt2 = {new Alternative("Dette er alternativ 1", true),
-                    new Alternative("Et annet alternativ", false),
-                    new Alternative("Siste alternativ", false)};
-            que[1].setAlternatives(alt2);
-            q.setQuestions(que);
+//        if(quizzes.size() < 1){
+//            Quiz q = new Quiz();
+//            q.setId("1");
+//            q.setName("Testname");
+//            q.setStartTime(new Date());
+//            Question[] que = new Question[2];
+//            que[0] = new Question();
+//            que[1] = new Question();
+//            que[0].setQuestion("Test1");
+//            que[1].setQuestion("Dette er et testspørsmpl?");
+//            Alternative[] alt1 = new Alternative[2];
+//            alt1[0] = new Alternative();
+//            alt1[1] = new Alternative();
+//            alt1[2] = new Alternative();
+//            alt1[0].setText("1");
+//            alt1[1].setText("2");
+//            alt1[2].setText("3");
+//            que[0].setAlternatives(alt1);
+//            Alternative[] alt2 = {new Alternative("Dette er alternativ 1", true),
+//                    new Alternative("Et annet alternativ", false),
+//                    new Alternative("Siste alternativ", false)};
+//            que[1].setAlternatives(alt2);
+//            q.setQuestions(que);
 
-            quizzes.put(q.getId(),q);
+//            quizzes.put(q.getId(),q);
 
-            Quiz q2 = new Quiz();
-            q2.setId("2");
-            q2.setName("Testname 2");
-            q2.setStartTime(new Date());
-            Question[] que2 = new Question[1];
-            que2[0] = new Question();
-            que2[0].setQuestion("Test2");
-            q2.setQuestions(que2);
+//            System.out.println(quizzes.size());
 
-            quizzes.put(q2.getId(),q2);
-        }
+//            Quiz q2 = new Quiz();
+//            q2.setId("2");
+//            q2.setName("Testname 2");
+//            q2.setStartTime(new Date());
+//            Question[] que2 = new Question[2];
+//            que2[0] = new Question();
+//            que2[1] = new Question();
+//            que2[0].setQuestion("Her har du et spørsmål");
+//            que2[1].setQuestion("Dette er et annerledes spørsmål");
+////            Alternative[] alt3 = {new Alternative("Meg", true),
+////                    new Alternative("Deg", false),
+////                    new Alternative("alle", false)};
+////            que2[0].setAlternatives(alt3);
+////            Alternative[] alt4 = {new Alternative("Dette er alternativ 1", true),
+////                    new Alternative("Et annet alternativ", false),
+////                    new Alternative("Siste alternativ", false)};
+////            que2[1].setAlternatives(alt4);
+//            q2.setQuestions(que2);
+
+//            quizzes.put(q2.getId(),q2);
+//        }
     }
 
     @POST
@@ -54,23 +70,23 @@ public class QuizService {
     @Consumes(MediaType.APPLICATION_JSON)
     public void setCurrentQuestion(@PathParam("questionId") int questionId){
         currentQuestion = questionId;
-        System.out.println(currentQuestion);
     }
 
     @POST
     @Path("/setQuiz/{quizId}")
     @Consumes(MediaType.APPLICATION_JSON)
-    public void setQuiz(@PathParam("quizId") String quizId){
-        this.quizId = quizId;
-        System.out.println(this.quizId);
-    }
+    public void setQuiz(@PathParam("quizId") String id){ quizId = id; }
 
     @POST
+    @Path("/nyQuiz")
     @Consumes(MediaType.APPLICATION_JSON)
     public void addQuiz(Quiz q){
+        System.out.println();
+        System.out.println("Alts: " + q.getQuestions()[0].getAlternatives().toString());
+        System.out.println("Sporsmol: " + q.getDemBoys());
         q.setId("" + (quizzes.size() + 1));
         quizzes.put(q.getId(), q);
-        System.out.println(q.getDemBoys());
+        System.out.println("Storrelse: "+quizzes.size());
     }
 
     @GET
@@ -81,11 +97,27 @@ public class QuizService {
     }
 
     @GET
-    @Path("/getQuestionText/{quizId}/{spmId}")
+    @Path("/getQuestionText")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getSpm(@PathParam("quizId") String quizId,
-                         @PathParam("spmId") int spmId){
-        return quizzes.get(quizId).getQuestions()[spmId].getQuestion();
+    public String getSpm(){
+        System.out.println("Storrelse: "+quizzes.size());
+        return quizzes.get(quizId).getQuestions()[1].getQuestion();
+    }
+
+    @GET
+    @Path("/getCurrentAlternatives/{altI}")
+    @Produces(MediaType.APPLICATION_JSON)
+    public String[] getAlternative(
+            @PathParam("altI") int altI){
+        if(quizzes.containsKey(quizId)){
+            System.out.println("Storrelse: "+quizzes.size());
+            String[] out = new String[2];
+            out[0] = quizzes.get(quizId).getQuestions()[1].getAlternatives()[altI].getText();
+            out[1] = quizzes.get(quizId).getQuestions()[1].getAlternatives()[altI].isCorrect();
+            return out;
+        } else {
+            throw new javax.ws.rs.NotFoundException();
+        }
     }
 
     @GET
@@ -129,22 +161,7 @@ public class QuizService {
     }
 
     @GET
-    @Path("/getAlternatives/{quizId}/{questionI}/{altI}")
-    @Produces(MediaType.APPLICATION_JSON)
-    public String[] getAlternative(@PathParam("quizId") String quizId,
-                                 @PathParam("questionI") int questionI,
-                                   @PathParam("altI") int altI){
-        if(quizzes.containsKey(quizId)){
-            String[] out = new String[2];
-            out[0] = quizzes.get(quizId).getQuestions()[questionI].getAlternatives()[altI].getText();
-            out[1] = quizzes.get(quizId).getQuestions()[questionI].getAlternatives()[altI].isCorrect();
-            return out;
-        } else {
-            throw new javax.ws.rs.NotFoundException();
-        }
-    }
-
-    @GET
+    @Path("/getQuizList")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Quiz> getQuizzes() {
         return quizzes.values();

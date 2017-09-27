@@ -4,9 +4,8 @@ public class Alternative {
     private String text;
     private boolean correct;
 
-    public Alternative(String text, boolean correct){
-        this.text = text;
-        this.correct = correct;
+    public Alternative(){
+
     }
 
     public String getText() {

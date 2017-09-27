@@ -7,57 +7,48 @@
     <script>
         $(document).ready(function(){
 
-            function getCurrentQuiz(){
-                return $.ajax({
-                    type: "GET",
-                    url: "rest/path/getCurrentQuiz",
-                    async: false,
-                }).responseText;
-            }
-
             function getCurrentQuestion(){
                 return $.ajax({
                     type: "GET",
                     url: "rest/path/getCurrentQuestion",
-                    async: false,
+                    async: false
                 }).responseText;
             }
-            var quizId = getCurrentQuiz();
             var questionId = getCurrentQuestion();
 
             function getQuestionText(){
                 return $.ajax({
                     type: 'GET',
-                    url: 'rest/path/getQuestionText/' + quizId + '/' + questionId,
+                    url: 'rest/path/getQuestionText',
                     async: false
                 }).responseText;
             }
 
             $("#question").html(getQuestionText());
 
-            var alt = new Array(6);
+            var alt = new Array(3);
 
-            for(var i = 0; i < 7; i++){
+            for(var i = 0; i < 3; i++){
                 alt[i] = new Array(2);
             }
 
-            function getAlt(index){
-                var out = [];
-                $.ajax({
-                    url: 'rest/path/getAlternatives/' + quizId + '/' + questionId + '/' + index,
-                    type: 'GET',
-                    success: function(data){
-                        out = data;
-                    },
-                    async: false
-                });
-                return out;
-            }
-
-            for(var i = 0; i < 3; i++){
-                alt[i] = getAlt(i);
-                $("#alt" + i).html(alt[i][0]);
-            }
+//            function getAlt(index){
+//                var out = [];
+//                $.ajax({
+//                    url: 'rest/path/getCurrentAlternatives/' + index,
+//                    type: 'GET',
+//                    success: function(data){
+//                        out = data;
+//                    },
+//                    async: false
+//                });
+//                return out;
+//            }
+//
+//            for(var i = 0; i < 3; i++){
+//                alt[i] = getAlt(i);
+//                $("#alt" + i).html(alt[i][0]);
+//            }
 
             $("#submit").click(function(){
                 $.ajax({

@@ -14,11 +14,12 @@
     </style>
     <script>
         $(document).ready(function(){
-            var table = $('#example').dataTable();
 
-            $('#quizliste').DataTable({
+            var table = $('#quizliste');
+
+            table.DataTable({
                 ajax: {
-                    url: 'rest/path',
+                    url: 'rest/path/getQuizList',
                     dataSrc: ''
                 },
                 columns: [
@@ -27,14 +28,14 @@
                 ]
             });
 
-            $('#quizliste tbody').on('click', 'tr', function () {
-//                var data = table.row( this ).data();
-//                alert(data);
-//                alert( 'You clicked on '+data[0]+'\'s row' );
-//                alert("Hallo");
-//                var data = table.row( $(this).parents('tr') ).data();
-//                alert(data);
-            } );
+//            $('#quizliste tbody').on('click', 'tr', function () {
+////                var data = table.row( this ).data();
+////                alert(data);
+////                alert( 'You clicked on '+data[0]+'\'s row' );
+////                alert("Hallo");
+////                var data = table.row( $(this).parents('tr') ).data();
+////                alert(data);
+//            } );
 
 //            $("#tableContainer").click(function(event) {
 //                var $target = $(event.target);
@@ -48,7 +49,7 @@
 //                alert(data);
 //            });
 
-            $('#quizliste').on("click", "tbody tr", function() {
+            table.on("click", "tbody tr", function() {
                 var data = $(this).find("td:first").text();
                 $.ajax({
                     url: 'rest/path/setQuiz/' + data,
@@ -81,7 +82,5 @@
         </thead>
     </table>
     </div>
-
-    <button id = "updateButton">Update</button>
 </body>
 </html>

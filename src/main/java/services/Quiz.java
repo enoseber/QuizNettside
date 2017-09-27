@@ -57,7 +57,7 @@ public class Quiz {
     public String getDemBoys(){
         String out = "";
         for(int i = 0; i < questions.length; i++){
-            out += questions[i].toString() + "\n";
+            out += "question["+i+"]: " + questions[i].toString() + "\n";
         }
         return out;
     }
