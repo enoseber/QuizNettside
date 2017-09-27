@@ -97,7 +97,22 @@ public class QuizService {
     @Path("/scoreInc")
     @Consumes(MediaType.APPLICATION_JSON)
     public void scoreInc(){
-        quizzes.get(quizId).setScore(1);
+        quizzes.get(quizId).incScore(1);
+    }
+
+    @POST
+    @Path("/cleanScore")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void scoreClean(){
+        quizzes.get(quizId).cleanScore();
+    }
+
+    @POST
+    @Path("/setNickname/{nickname}")
+    @Consumes(MediaType.APPLICATION_JSON)
+    public void setNickname(@PathParam("nickname") String nickname){
+        quizzes.get(quizId).
+                setNickname(nickname);
     }
 
     @GET
@@ -114,7 +129,6 @@ public class QuizService {
         System.out.println(quizzes.get(quizId).getScore());
         return quizzes.get(quizId).getScore();
     }
-
 
     @GET
     @Path("/getCurrentQuestion")

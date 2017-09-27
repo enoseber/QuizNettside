@@ -34,13 +34,16 @@
                     }
                 }
 
-                var bool = true;
+                function correct(i, j){
+//                    console.log($("#spm" + (i + 1) + " input[type=radio]:checked").val() + " == " + j);
+                    return $("#spm" + (i + 1) + " input[type=radio]:checked").val() === j + "";
+                }
 
                 for(var i = 0; i < spm.val(); i++){
                     for(var j = 0; j < 3; j++){
                         alternatives[i][j] = {
                             text: altInputs[i][j],
-                            correct: bool
+                            correct: correct(i, j)
                         };
                     }
                 }
@@ -96,36 +99,35 @@
 
         <div id = "spm1">Spørsmål 1:
             <input type="text" id = "0_0"><br>
-            Alternativ 1: <input id="0_1"><br>
-            Alternativ 2: <input id="0_2"><br>
-            Alternativ 3: <input id="0_3"><br>
+            <input type = "radio" name = "r0" value = "0" checked = "true">Alternativ 1: <input id="0_1"><br>
+            <input type = "radio" name = "r0" value = "1">Alternativ 2: <input id="0_2"><br>
+            <input type = "radio" name = "r0" value = "2">Alternativ 3: <input id="0_3"><br>
         </div>
         <br>
         <div id = "spm2">Spørsmål 2:
             <input type="text" id = "1_0"><br>
-            Alternativ 1: <input id="1_1"><br>
-            Alternativ 2: <input id="1_2"><br>
-            Alternativ 3: <input id="1_3"><br>
+            <input type = "radio" name = "r1" value = "0" checked = "true">Alternativ 1: <input id="1_1"><br>
+            <input type = "radio" name = "r1" value = "1">Alternativ 2: <input id="1_2"><br>
+            <input type = "radio" name = "r1" value = "2">Alternativ 3: <input id="1_3"><br>
         </div>
         <br>
         <div id = "spm3">Spørsmål 3:
             <input type="text" id = "2_0"><br>
-            Alternativ 1: <input id="2_1"><br>
-            Alternativ 2: <input id="2_2"><br>
-            Alternativ 3: <input id="2_3"><br>
+            <input type = "radio" name = "r2" value = "0"checked = "true">Alternativ 1: <input id="2_1"><br>
+            <input type = "radio" name = "r2" value = "1">Alternativ 2: <input id="2_2"><br>
+            <input type = "radio" name = "r2" value = "2">Alternativ 3: <input id="2_3"><br>
         </div>
         <br>
         <div id = "spm4">Spørsmål 4:
             <input type="text" id = "3_0"><br>
-            Alternativ 1: <input id="3_1"><br>
-            Alternativ 2: <input id="3_2"><br>
-            Alternativ 3: <input id="3_3"><br>
+            <input type = "radio" name = "r3" value = "0" checked = "true">Alternativ 1: <input id="3_1"><br>
+            <input type = "radio" name = "r3" value = "1">Alternativ 2: <input id="3_2"><br>
+            <input type = "radio" name = "r3" value = "2">Alternativ 3: <input id="3_3"><br>
         </div>
         <button id = "nameSend">Legg til</button>
     </form>
 
-
-    <a href="quizside.html">Tilbake til quiz</a>
+    <a href="index.html">Tilbake til quiz</a>
 
     <p id="melding">Legg til ny quiz</p>
 </body>

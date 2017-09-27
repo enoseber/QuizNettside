@@ -2,16 +2,100 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Velkommen til Quiz</title>
-    <script src="http://code.jquery.com/jquery-1.11.1.min.js"></script>
+    <title>Quizside</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <style>
+        #quizliste tbody tr:hover{
+            cursor: pointer;
+            background-color: aqua;
+        }
+    </style>
+    <script>
+        $(document).ready(function(){
+
+            var table = $('#quizliste');
+
+            table.DataTable({
+                ajax: {
+                    url: 'rest/path/getQuizList',
+                    dataSrc: ''
+                },
+                columns: [
+                    { data: 'id'},
+                    { data: 'name'},
+                    { data: 'startTime'}
+                ]
+            });
+
+            function checkNickname(){
+                return $("#nicknameInput").val() !== "";
+            }
+
+            table.on("click", "tbody tr", function() {
+                if(checkNickname()){
+                    var nick = $("#nicknameInput").val();
+                    console.log(nick);
+                    var data = $(this).find("td:first").text();
+                    $.ajax({
+                        url: 'rest/path/setQuiz/' + data,
+                        type: 'POST',
+                        data: JSON.stringify(data),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json'
+                    });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'rest/path/cleanScore',
+                        data: '',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json'
+                    });
+
+                    $.ajax({
+                        type: 'POST',
+                        url: 'rest/path/setNickname/' + nick,
+                        data: JSON.stringify(nick),
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json'
+                    });
+
+                    $.ajax({
+                        url: 'rest/path/setCurrentQuestion/0',
+                        type: 'POST',
+                        data: '',
+                        contentType: 'application/json; charset=utf-8',
+                        dataType: 'json'
+                    });
+
+                    window.location.href = "utforquiz.html";
+                } else {
+                    alert("Vennligs skriv inn et nickname");
+                }
+
+            });
+        });
+    </script>
 </head>
 <body>
-    <list>
-        <u><a href="quizside.html">Quizer</a></u>
-        <u><a href="scoreboard.html">Generell scoreboard</a></u>
-        <u><a href="nyquizside.html">Lag ny quiz</a></u>
-        <u><a href="utforquiz.html">Utfør quiz</a></u>
-    </list>
+    <a href="nyquizside.html">Lag ny quiz</a>
+    <br>
+    <div>
+        <form>
+        <input type="text" id = "nicknameInput">
+        </form>
+    </div>
+    <br>
+    <div id = "tableContainer">
+    <table id="quizliste">
+        <thead>
+        <th>Quiz ID</th>
+        <th>Quiz navn</th>
+        <th>Start-time</th>
+        </thead>
+    </table>
+    </div>
 </body>
 </html>

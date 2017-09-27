@@ -3,13 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <title>Scoreboard</title>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <script>
+        $(document).ready(function() {
+
+            var table = $('#scoreboard');
+
+            table.DataTable({
+                ajax: {
+                    url: 'rest/path/getQuizList',
+                    dataSrc: ''
+                },
+                columns: [
+                    {data: 'nickname'},
+                    {data: 'score'},
+                    {data: 'name'}
+                ]
+            });
+        });
+    </script>
 </head>
 <body>
     <list>
-        <u><a href="quizside.html">Quizer</a></u>
-        <u><a href="scoreboard.html">Generell scoreboard</a></u>
+        <u><a href="index.html">Quizer</a></u>
         <u><a href="nyquizside.html">Lag ny quiz</a></u>
-        <u><a href="utforquiz.html">Utfør quiz</a></u>
     </list>
+
+    <table id = "scoreboard">
+        <thead>
+        <th>Nickname</th>
+        <th>Antall poeng</th>
+        <th>Quiz-navn</th>
+        </thead>
+    </table>
 </body>
 </html>

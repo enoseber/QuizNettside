@@ -9,7 +9,7 @@ public class Quiz {
     private Date startTime;
     private Question[] questions;
     private int score;
-    private String nickName;
+    private String nickname = "";
 
     public Quiz(){
 
@@ -19,9 +19,11 @@ public class Quiz {
         return score;
     }
 
-    public void setScore(int score) {
+    public void incScore(int score) {
         this.score += score;
     }
+
+    public void cleanScore(){score = 0;}
 
     public String getId() {
         return id;
@@ -55,12 +57,12 @@ public class Quiz {
         this.questions = questions;
     }
 
-    public String getNickName() {
-        return nickName;
+    public String getNickname() {
+        return nickname;
     }
 
-    public void setNickName(String nickName) {
-        this.nickName = nickName;
+    public void setNickname(String nickname) {
+        this.nickname = nickname;
     }
 
     @Override
