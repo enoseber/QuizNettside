@@ -3,13 +3,24 @@
 <head>
     <meta charset="UTF-8">
     <title>Quizside</title>
-    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
     <style>
         #quizliste tbody tr:hover{
             cursor: pointer;
-            background-color: aqua;
+            background-color: rgba(202,198,226,0.42);
+        }
+        #nickInput{
+            width: 75%;
+            padding-left: 25%;
+        }
+        #nicknameInput{
+            width: 100%;
+            background-color: rgba(221,217,246,0.42);
+            text-align: center;
         }
     </style>
     <script>
@@ -18,6 +29,9 @@
             var table = $('#quizliste');
 
             table.DataTable({
+                bFilter: false,
+                bPaginate: false,
+                "lengthChange": false,
                 ajax: {
                     url: 'rest/path/getQuizList',
                     dataSrc: ''
@@ -25,7 +39,14 @@
                 columns: [
                     { data: 'id'},
                     { data: 'name'},
-                    { data: 'startTime'}
+                    {
+                        "data": "startTime",
+                        "render": function (data) {
+                            var date = new Date(data);
+                            var month = date.getMonth() + 1;
+                            return date.getDate() + "/" + (month.length > 1 ? month : "0" + month) + "/" + date.getFullYear();
+                        }
+                    }
                 ]
             });
 
@@ -72,7 +93,7 @@
 
                     window.location.href = "utforquiz.html";
                 } else {
-                    alert("Vennligs skriv inn et nickname");
+                    alert("Vennligst skriv inn et nickname");
                 }
 
             });
@@ -80,16 +101,23 @@
     </script>
 </head>
 <body>
-    <a href="nyquizside.html">Lag ny quiz</a>
-    <br>
-    <div>
-        <form>
-        <input type="text" id = "nicknameInput">
-        </form>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li class = "active"><a href="index.html">Home</a></li>
+                <li><a href="nyquizside.html">Ny quiz</a></li>
+                <li><a href="scoreboard.html">Scoreboard</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class = "row">
+        <div id = "nickInput">
+            <input type="text" id = "nicknameInput" placeholder = "Skriv inn nickname">
+        </div>
     </div>
     <br>
     <div id = "tableContainer">
-    <table id="quizliste">
+    <table id="quizliste" class = "table">
         <thead>
         <th>Quiz ID</th>
         <th>Quiz navn</th>

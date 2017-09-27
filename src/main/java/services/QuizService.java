@@ -185,9 +185,9 @@ public class QuizService {
     }
 
     @GET
-    @Path("/getName/{quizId}")
+    @Path("/getCurrentQuizName")
     @Produces(MediaType.TEXT_PLAIN)
-    public String getQuizName(@PathParam("quizId") String quizId){
+    public String getQuizName(){
         if(quizzes.containsKey(quizId)){
             return quizzes.get(quizId).getName();
         } else {
@@ -210,10 +210,6 @@ public class QuizService {
     @Path("/getQuizList")
     @Produces(MediaType.APPLICATION_JSON)
     public Collection<Quiz> getQuizzes() {
-        Map<String,Quiz> out = new HashMap<String,Quiz>();
-        for(int i = 1; i <= quizzes.size(); i++){
-
-        }
         return quizzes.values();
     }
 }

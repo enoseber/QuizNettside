@@ -3,15 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <title>Scoreboard</title>
-    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <style>
+        #overskrift{
+            width: 100%;
+            text-align: center;
+            margin-top: 20px;
+            margin-bottom: 20px;
+        }
+    </style>
     <script>
         $(document).ready(function() {
 
             var table = $('#scoreboard');
 
             table.DataTable({
+                bFilter: false,
+                bPaginate: false,
                 ajax: {
                     url: 'rest/path/getQuizList',
                     dataSrc: ''
@@ -26,12 +38,19 @@
     </script>
 </head>
 <body>
-    <list>
-        <u><a href="index.html">Quizer</a></u>
-        <u><a href="nyquizside.html">Lag ny quiz</a></u>
-    </list>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li><a href="nyquizside.html">Ny quiz</a></li>
+                <li class = "active"><a href="scoreboard.html">Scoreboard</a></li>
+            </ul>
+        </div>
+    </nav>
 
-    <table id = "scoreboard">
+    <div id = "overskrift"><h2>High Score</h2></div>
+
+    <table id = "scoreboard" class = "table">
         <thead>
         <th>Nickname</th>
         <th>Antall poeng</th>

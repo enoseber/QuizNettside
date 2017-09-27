@@ -3,9 +3,42 @@
 <head>
     <meta charset="UTF-8">
     <title>Utfør quizen</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://cdn.datatables.net/1.10.9/css/jquery.dataTables.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <style>
+        #spmContain{
+            width: 50%;
+            margin-left: 25%;
+            background-color: rgba(241,233,241,0.42);
+            border: 1px solid #999;
+        }
+        #quizContain{
+            padding-top:15px;
+            width: 100%;
+            text-align: center;
+        }
+        #questionContain{
+            margin-left: 20px;
+        }
+        #altContain{
+            margin-left: 20px;
+            padding-bottom: 30px;
+        }
+    </style>
     <script>
         $(document).ready(function(){
+
+            function getQuizText(){
+                return $.ajax({
+                    type: 'GET',
+                    url: 'rest/path/getCurrentQuizName',
+                    async: false
+                }).responseText;
+            }
 
             function getQuestionText(){
                 return $.ajax({
@@ -16,6 +49,7 @@
             }
 
             $("#question").html(getQuestionText());
+            $("#quiz").html(getQuizText());
 
             var alt = new Array(3);
 
@@ -91,12 +125,26 @@
     </script>
 </head>
 <body>
-    <h2 id = "question"></h2>
-    <form id = "alternatives">
-        <input id = "butt0" type="radio" name="question" value="Alt1"><span id = "alt0"></span><br>
-        <input id = "butt1" type="radio" name="question" value="Alt2"><span id = "alt1"></span><br>
-        <input id = "butt2" type="radio" name="question" value="Alt3"><span id = "alt2"></span><br><br>
-        <input type="button" value="Send inn svar" id = "submit">
-    </form>
+<nav class="navbar navbar-default">
+    <div class="container-fluid">
+        <ul class="nav navbar-nav">
+            <li><a href="index.html">Home</a></li>
+            <li class = "active"><a href="nyquizside.html">Ny quiz</a></li>
+            <li><a href="scoreboard.html">Scoreboard</a></li>
+        </ul>
+    </div>
+</nav>
+    <div id = "spmContain">
+        <div id = "quizContain"><h1 id = "quiz"></h1></div>
+        <div id = "questionContain"><h2 id = "question"></h2></div>
+        <div id = "altContain">
+            <form id = "alternatives">
+                <input id = "butt0" type="radio" name="question" value="Alt1"><span id = "alt0"></span><br>
+                <input id = "butt1" type="radio" name="question" value="Alt2"><span id = "alt1"></span><br>
+                <input id = "butt2" type="radio" name="question" value="Alt3"><span id = "alt2"></span><br><br>
+                <input type="button" value="Send inn svar" id = "submit">
+            </form>
+        </div>
+    </div>
 </body>
 </html>

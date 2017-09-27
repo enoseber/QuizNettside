@@ -3,8 +3,56 @@
 <head>
     <meta charset="UTF-8">
     <title>Ny quiz</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
     <script src="http://cdn.datatables.net/1.10.9/js/jquery.dataTables.min.js"></script>
+    <style>
+        #container{
+            width: 50%;
+            margin-left: 25%;
+            background-color: rgba(241,233,241,0.42);
+            border: 1px solid #999;
+        }
+        #buttonContain{
+            margin-top: 1%;
+            margin-bottom: 1%;
+            margin-left:45%;
+        }
+        #navnContain{
+            width: 50%;
+            margin-left: 30%;
+            margin-bottom: 2%;
+        }
+        #container{
+            padding: 20px;
+        }
+        #antall{
+            margin-left: 5%;
+            margin-bottom: 2%;
+        }
+        #nameSend{
+            width:100px;
+            height:60px;
+        }
+        .containSpm{
+            width: 50%;
+            margin-left: 25%;
+            margin-top: 10px;
+        }
+        form input[type=radio]{
+            float: left;
+            margin-bottom: 2px;
+        }
+        form input[type=text]{
+            margin-left: 12px;
+            margin-bottom: 2px;
+        }
+        .alt{
+            margin-bottom: 2px;
+        }
+    </style>
     <script>
         $(document).ready(function(){
 
@@ -65,18 +113,19 @@
                     contentType: "application/json; charset=utf-8",
                     dataType: "json"
                 });
+
+                window.location.href = "index.html";
             });
 
             spm.on('change', function(){
                 if(spm.val() == "0") {
                     alert("Velg antall tulling");
                 } else {
-                    for (var i = 1; i <= 6 - (6-spm.val()); i++) {
-                        if($('#spm' + i).is(":visible")) {
-                            $('#spm' + i).hide();
-                        } else {
-                            $('#spm' + i).show();
-                        }
+                    for (var i = 1; i <= 6; i++) {
+                        $('#spm' + i).hide();
+                    }
+                    for (var i = 1; i <= spm.val(); i++) {
+                        $('#spm' + i).show();
                     }
                 }
             });
@@ -84,51 +133,59 @@
     </script>
 </head>
 <body>
-    <form>
-        Quiz navn: <input id = "nameInput" type="text">
-        <br>
-        Hvor mange spørsmål skal det være?
-        <br>
-        <select id="selectQuestions">
-            <option value = "0">Velg antall</option>
-            <option value = "1" >1</option>
-            <option value = "2" >2</option>
-            <option value = "3" >3</option>
-            <option value = "4" >4</option>
-        </select>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <ul class="nav navbar-nav">
+                <li><a href="index.html">Home</a></li>
+                <li class = "active"><a href="nyquizside.html">Ny quiz</a></li>
+                <li><a href="scoreboard.html">Scoreboard</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div id = "container">
+        <div id = "buttonContain">
+            <button id = "nameSend">Lag quiz</button>
+        </div>
+        <div id = "navnContain">
+            Quiz navn: <input id = "nameInput" type="text">
+        </div>
 
-        <div id = "spm1">Spørsmål 1:
-            <input type="text" id = "0_0"><br>
-            <input type = "radio" name = "r0" value = "0" checked = "true">Alternativ 1: <input id="0_1"><br>
-            <input type = "radio" name = "r0" value = "1">Alternativ 2: <input id="0_2"><br>
-            <input type = "radio" name = "r0" value = "2">Alternativ 3: <input id="0_3"><br>
+        <div id  = "antall">
+            Hvor mange spørsmål skal det være?
+            <select id="selectQuestions">
+                <option value = "0">Velg antall</option>
+                <option value = "1" >1</option>
+                <option value = "2" >2</option>
+                <option value = "3" >3</option>
+                <option value = "4" >4</option>
+            </select>
         </div>
-        <br>
-        <div id = "spm2">Spørsmål 2:
-            <input type="text" id = "1_0"><br>
-            <input type = "radio" name = "r1" value = "0" checked = "true">Alternativ 1: <input id="1_1"><br>
-            <input type = "radio" name = "r1" value = "1">Alternativ 2: <input id="1_2"><br>
-            <input type = "radio" name = "r1" value = "2">Alternativ 3: <input id="1_3"><br>
-        </div>
-        <br>
-        <div id = "spm3">Spørsmål 3:
-            <input type="text" id = "2_0"><br>
-            <input type = "radio" name = "r2" value = "0"checked = "true">Alternativ 1: <input id="2_1"><br>
-            <input type = "radio" name = "r2" value = "1">Alternativ 2: <input id="2_2"><br>
-            <input type = "radio" name = "r2" value = "2">Alternativ 3: <input id="2_3"><br>
-        </div>
-        <br>
-        <div id = "spm4">Spørsmål 4:
-            <input type="text" id = "3_0"><br>
-            <input type = "radio" name = "r3" value = "0" checked = "true">Alternativ 1: <input id="3_1"><br>
-            <input type = "radio" name = "r3" value = "1">Alternativ 2: <input id="3_2"><br>
-            <input type = "radio" name = "r3" value = "2">Alternativ 3: <input id="3_3"><br>
-        </div>
-        <button id = "nameSend">Legg til</button>
-    </form>
-
-    <a href="index.html">Tilbake til quiz</a>
-
-    <p id="melding">Legg til ny quiz</p>
+        <form>
+            <div id = "spm1" class = "containSpm">Spørsmål 1:
+                <input type="text" id = "0_0"><br>
+                <input type = "radio" name = "r0" value = "0" checked = "true">Alternativ 1: <input id="0_1" class = "alt"><br>
+                <input type = "radio" name = "r0" value = "1">Alternativ 2: <input id="0_2" class = "alt"><br>
+                <input type = "radio" name = "r0" value = "2">Alternativ 3: <input id="0_3" class = "alt"><br>
+            </div>
+            <div id = "spm2" class = "containSpm">Spørsmål 2:
+                <input type="text" id = "1_0"><br>
+                <input type = "radio" name = "r1" value = "0" checked = "true">Alternativ 1: <input id="1_1" class = "alt"><br>
+                <input type = "radio" name = "r1" value = "1">Alternativ 2: <input id="1_2" class = "alt"><br>
+                <input type = "radio" name = "r1" value = "2">Alternativ 3: <input id="1_3" class = "alt"><br>
+            </div>
+            <div id = "spm3" class = "containSpm">Spørsmål 3:
+                <input type="text" id = "2_0"><br>
+                <input type = "radio" name = "r2" value = "0"checked = "true">Alternativ 1: <input id="2_1" class = "alt"><br>
+                <input type = "radio" name = "r2" value = "1">Alternativ 2: <input id="2_2" class = "alt"><br>
+                <input type = "radio" name = "r2" value = "2">Alternativ 3: <input id="2_3" class = "alt"><br>
+            </div>
+            <div id = "spm4" class = "containSpm">Spørsmål 4:
+                <input type="text" id = "3_0"><br>
+                <input type = "radio" name = "r3" value = "0" checked = "true">Alternativ 1: <input id="3_1" class = "alt"><br>
+                <input type = "radio" name = "r3" value = "1">Alternativ 2: <input  id="3_2" class = "alt"><br>
+                <input type = "radio" name = "r3" value = "2">Alternativ 3: <input id="3_3" class = "alt"><br>
+            </div>
+        </form>
+    </div>
 </body>
 </html>
