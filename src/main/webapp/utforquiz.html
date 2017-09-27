@@ -32,6 +32,21 @@
     <script>
         $(document).ready(function(){
 
+            function getSecondsLeft(){
+                var out = 0;
+                $.ajax({
+                    url: 'rest/path/secondsLeft',
+                    type: 'GET',
+                    success:function(data){
+                        out = data;
+                    },
+                    async: false
+                });
+                return out;
+            }
+
+            var secondsLeft = getSecondsLeft();
+
             function getQuizText(){
                 return $.ajax({
                     type: 'GET',
@@ -101,7 +116,9 @@
                 return out;
             }
 
-            $("#submit").click(function(){
+            $("#submit").click(nesteSpm());
+
+            function nesteSpm(){
                 checkAnswer();
 
                 $.ajax({
@@ -112,14 +129,12 @@
                     dataType: 'json'
                 });
 
-                console.log(checkQuestions());
-
                 if(checkQuestions()){
                     window.location.href = "scoreboard.html";
                 } else {
                     window.location.reload();
                 }
-            });
+            }
 
         });
     </script>

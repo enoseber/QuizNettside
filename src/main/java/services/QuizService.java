@@ -104,7 +104,9 @@ public class QuizService {
     @Path("/cleanScore")
     @Consumes(MediaType.APPLICATION_JSON)
     public void scoreClean(){
-        quizzes.get(quizId).cleanScore();
+        if(quizzes.get(quizId).getScore() != 0) {
+            quizzes.get(quizId).cleanScore();
+        }
     }
 
     @POST
@@ -120,6 +122,13 @@ public class QuizService {
     @Produces(MediaType.APPLICATION_JSON)
     public boolean lastQuestion(){
         return currentQuestion == quizzes.get(quizId).getQuestions().length;
+    }
+
+    @GET
+    @Path("/secondsLeft")
+    @Produces(MediaType.APPLICATION_JSON)
+    public int secondsLeft(){
+        return quizzes.get(quizId).getQuestions()[currentQuestion].getSecondsLeft();
     }
 
     @GET
